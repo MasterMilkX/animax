@@ -7,19 +7,69 @@
 		<h2>animax</h2>
 		<table id="container">
 			<tr>
+				<!--  SPRITE VIEW  -->
 				<td id="spriteView" rowspan="2">
-					<canvas id="spriteWindow" width="325" height="325">Wow, you need a new browser my dude</canvas>
-				</td>
-				<td id="keyMapView">
-
-				</td>
-			</tr>
-			<tr>
-				<td id="frameMapView">
+					<table id="spriteArea">
+						<tr><td><canvas id="spriteWindow" width="325" height="325">Wow, you need a new browser my dude</canvas></td></tr>
+						<tr><td style="padding-bottom: 0.5em;"><input type="file"></td></tr>
+					</table>
+					
 					
 				</td>
+
+				<!--  KEY MAPPING VIEW  -->
+				<td id="keyMapView">
+					<div id="keyScroll" class="scroller">
+					<table id="keyMapper" class="mapper">
+						<tr><td>UP</td> <td>"move up"</td></tr>
+						<tr><td>UP</td> <td>"move up"</td></tr>
+						<tr style="background-color: #ffff00"><td>UP</td> <td>"move up"</td></tr>
+						<tr><td>UP</td> <td>"move up"</td></tr>
+						<tr><td>UP</td> <td>"move up"</td></tr>
+						<tr><td>UP</td> <td>"move up"</td></tr>
+						<tr><td>UP</td> <td>"move up"</td></tr>
+						<tr><td>UP</td> <td>"move up"</td></tr>
+						<tr><td>UP</td> <td>"move up"</td></tr>
+						<tr><td>UP</td> <td>"move up"</td></tr>
+					</table>
+					</div>
+					<table class="listSet">
+						<tr>
+							<td><button id="add_key">Add</button></td>
+							<td><button id="delete_key">Delete</button></td>
+							<td><button id="clear_key">Clear</button></td>
+						</tr>
+					</table>
+				</td>
 			</tr>
+
 			<tr>
+				<!--  FRAME MAPPING VIEW  -->
+				<td id="frameMapView">
+					<div id="frameScroll" class="scroller">
+					<table id="frameMapper" class="mapper">
+						<tr><td>[1,2,3,2]</td> <td>"move up"</td></tr>
+						<tr><td>[1,2,3,2]</td> <td>"move up"</td></tr>
+						<tr><td>[1,2,3,2]</td> <td>"move up"</td></tr>
+						<tr><td>[1,2,3,2]</td> <td>"move up"</td></tr>
+						<tr><td>[1,2,3,2]</td> <td>"move up"</td></tr>
+						<tr><td>[1,2,3,2]</td> <td>"move up"</td></tr>
+						<tr><td>[1,2,3,2]</td> <td>"move up"</td></tr>
+						<tr><td>[1,2,3,2]</td> <td>"move up"</td></tr>
+					</table>
+					</div>
+					<table class="listSet">
+						<tr>
+							<td><button id="add_key">Add</button></td>
+							<td><button id="delete_key">Delete</button></td>
+							<td><button id="clear_key">Clear</button></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+
+			<tr>
+				<!--  PROPERTY VIEW  -->
 				<td id="propertyView" colspan="2">
 					<table id="propertyTable">
 						<tr>

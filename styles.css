@@ -6,6 +6,7 @@ h2{
   	font-family: "monospace";
 }
 
+/*    LAYOUT    */
 #container{
 	top: 0;
 	bottom: 0;
@@ -15,8 +16,10 @@ h2{
 	margin-right: auto;
 }
 #spriteView{
-	width: 22em;
+	width: 20em;
 	background: #ffff00;
+	margin-left: auto;
+	margin-right: auto;
 }
 #keyMapView{
 	width: 15em;
@@ -34,16 +37,55 @@ h2{
 
 
 
+/*   SPRITE WINDOW    */
+#spriteArea{
+	margin-left: auto; 
+	margin-right: auto;
+	text-align: center;
+}
+
 #spriteWindow{
   	border:2px solid #000;
-  	margin: auto;
   	display: block;
-  	margin: 1.5em;
+  	margin-top: 2em;
+  	margin-left: 1.5em;
+  	margin-right: 1.5em;
+  	margin-bottom: 0.5em;
   	background-color: #fefefe;
 }
 
+/*    KEY MAPPING   */
+.scroller{
+	height: 7.5em;
+	margin-top: 1.5em;
+	margin-left: 1.5em;
+	margin-right: 1.5em;
+	margin-bottom: 0.75em;
+	overflow: auto;
+	border: 1px solid black;
+}
 
-#propertyView table, th, td{
+.mapper{
+	background-color: #ffffff;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.listSet{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
+}
+.listSet td{
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	text-align: center;
+}
+
+
+/*    PROPERTY INPUTS    */
+#propertyView table tr td{
 	/*border: 1px solid black;*/
 }
 
