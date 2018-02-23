@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+	<head>
+		<title>ANIMAX</title>
+		<link type="text/css" rel="stylesheet" href="styles.css"/>
+	</head>
+	<body>
+		<h2>animax</h2>
+		<table id="container">
+			<tr>
+				<td id="spriteView" rowspan="2">
+					<canvas id="spriteWindow" width="325" height="325">Wow, you need a new browser my dude</canvas>
+				</td>
+				<td id="keyMapView">
+
+				</td>
+			</tr>
+			<tr>
+				<td id="frameMapView">
+					
+				</td>
+			</tr>
+			<tr>
+				<td id="propertyView" colspan="2">
+					<table id="propertyTable">
+						<tr>
+							<td>width</td>
+							<td>height</td>
+							<td>fpr</td>
+							<td>fps</td>
+							<td>seqLen</td>
+							<td>lock dir?</td>
+						</tr>
+						<tr>
+							<td><input name="width" type="number" min="2" max="320" value="16"></td>
+							<td><input name="height" type="number" min="2" max="320" value="16"></td>
+							<td><input name="fpr" type="number" min="1" max="16" value="4"></td>
+							<td><input name="fps" type="number" min="1" max="320" value="4"></td>
+							<td><input name="seqLen" type="number" min="1" max="32" value="4"></td>
+							<td><input name="lock dir" type="checkbox"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+
+		
+		<script src="code.js"></script>
+	</body>
+</html>
