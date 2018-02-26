@@ -41,6 +41,7 @@ var scaleConst = 3.2;
 
 //key definition
 var keyAnimations = [];
+var curAnim = "";
 
 //frame definition
 var frameAnimations = [];
@@ -164,6 +165,29 @@ function clearKey(){
 	keyAnimations = [];
 }
 
+function highliteTables(){
+	var keyMap = document.getElementById("keyMapper");
+	var frameMap = document.getElementById("frameMapper");
+
+	for(var i=0;i<keyAnimations.length;i++){
+		var myAnim = keyAnimations[i].animName;
+		if(myAnim === curAnim){
+			keyMap.rows[i].style.backgroundColor = "#ffff00";
+		}else{
+			keyMap.rows[i].style.backgroundColor = "#ffffff"
+		}
+	}
+
+	for(var i=0;i<frameAnimations.length;i++){
+		var myAnim = frameAnimations[i].animName;
+		if(myAnim === curAnim){
+			frameMap.rows[i].style.backgroundColor = "#ffff00";
+		}else{
+			frameMap.rows[i].style.backgroundColor = "#ffffff"
+		}
+	}
+}
+
 //add a sequence
 function addSeq(){
 	var seq = document.getElementById("frameLabel").value;
@@ -224,14 +248,14 @@ function render(){
 
 function processKey(){
 	var animation = getSeq(anyAlphaKey || anyMoveKey());
-	if(animation != ""){console.log("ANIM: " + animation);}
+	curAnim = animation;
 	getAnimation(animation);
 }
 
 function getSeq(keyDown){
 	for(var i=0;i<keyAnimations.length;i++){
 		var myKey = keyAnimations[i].key;
-		if(isSpecialKey(myKey)){
+		if(isSpecialKey(myKey) && !anyAlphaKey){
 			if(!anyMoveKey() && (((myKey === "DEF_" + dir) && lock_dir) || (myKey === "DEFAULT"))){
 				return keyAnimations[i].animName;
 			}else if(anyMoveKey() && (myKey === dir)){
@@ -271,7 +295,7 @@ document.body.addEventListener("keydown", function (e) {
 		keys[e.keyCode] = true;
 	}else if(inArr(alphaKeySet, e.keyCode)){
 		keys[e.keyCode] = true;
-		anyAlphaKey = false;
+		anyAlphaKey = true;
 	}
 });
 
@@ -310,14 +334,22 @@ function transMove(e){
 }
 
 function init(){
-	keyAnimations.push(new keyAnim("RIGHT", "move right"));
-	frameAnimations.push(new seqAnim([0,1,2,1], "move right"));
+	keyAnimations.push(new keyAnim("RIGHT", "move_right"));
+	keyAnimations.push(new keyAnim("LEFT", "move_left"));
+	keyAnimations.push(new keyAnim("DEF_RIGHT", "idle_right"));
+	keyAnimations.push(new keyAnim("DEF_LEFT", "idle_left"));
+
+	frameAnimations.push(new seqAnim([0,1,2,1], "move_right"));
+	frameAnimations.push(new seqAnim([5,4,3,4], "move_left"));
+	frameAnimations.push(new seqAnim([0,0,0,0], "idle_right"));
+	frameAnimations.push(new seqAnim([5,5,5,5], "idle_left"));
 }
 
 //update stuff
 function main(){
 	render();
 	processKey();
+	highliteTables();
 	requestAnimationFrame(main);
 }
 
