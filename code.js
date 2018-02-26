@@ -14,6 +14,12 @@ var rightKey = 39;  //[Rigt]
 var downKey = 40;   //[Down]
 var moveKeySet = [upKey, leftKey, rightKey, downKey];
 
+var alphaKeySet = [];
+for(var i=65;i<=90;i++){alphaKeySet.push(i);}
+
+var keys = [];
+var anyAlphaKey = false;
+
 var sprite = new Image();
 sprite.src = "sample_img/Beto.png";
 var spriteReady = false;
@@ -29,7 +35,7 @@ var seqlength = 4;
 var lock_dir = true;
 var curFrame = 0;
 var ct = 0;
-var dir = "north";
+var dir = "DOWN";
 var action = "idle";
 var scaleConst = 3.2;
 
@@ -38,7 +44,26 @@ var keyAnimations = [];
 
 //frame definition
 var frameAnimations = [];
+var curSeq = [0,0,0,0];
 
+
+function inArr(arr, e){
+	if(arr.length == 0)
+		return false;
+	return arr.indexOf(e) !== -1
+}
+
+function isEqual(arr1, arr2){
+	if(arr1.length != arr2.length)
+		return false;
+	else{
+		for(var i=0;i<arr1.length;i++){
+			if(arr1[i] != arr2[i])
+				return false;
+		}
+		return true;
+	}
+}
 
 //load a new sprite onto the canvas
 function loadSprite(){
@@ -74,7 +99,7 @@ function updatesprite(){
 //draw the sprite
 function rendersprite(){
 	//set the animation sequence
-	var sequence = [1,1,1,1];
+	var sequence = curSeq;
 	
 	//get the row and col of the current frame
 	var row = Math.floor(sequence[curFrame] / fpr);
@@ -124,6 +149,20 @@ function addKey(){
 	document.getElementById("keyLabel").value = "";
 	document.getElementById("animName1").value = "";
 }
+//remove the most recently added row from the key table
+function delKey(){
+	var table = document.getElementById("keyMapper");
+	table.deleteRow(table.rows.length-1);
+	keyAnimations.pop();
+}
+
+//clear the entire key animations list
+function clearKey(){
+	var table = document.getElementById("keyMapper");
+	for(var i=table.rows.length;i>0;i--)
+		table.deleteRow(table.rows.length-1);
+	keyAnimations = [];
+}
 
 //add a sequence
 function addSeq(){
@@ -141,7 +180,7 @@ function addSeq(){
 	}
 
 	//add to the array
-	frameAnimations.push(new seqAnim(seq, animName));
+	frameAnimations.push(new seqAnim(JSON.parse(seq), animName));
 
 	//add to physical table
 	var table = document.getElementById("frameMapper");
@@ -156,6 +195,21 @@ function addSeq(){
 	document.getElementById("animName2").value = "";
 }
 
+//delete the most recent sequence input to the table
+function delSeq(){
+	var table = document.getElementById("frameMapper");
+	table.deleteRow(table.rows.length-1);
+	frameAnimations.pop();
+}
+
+//clear the entire set
+function clearSeq(){
+	var table = document.getElementById("frameMapper");
+	for(var i=table.rows.length;i>0;i--)
+		table.deleteRow(table.rows.length-1);
+	frameAnimations = [];
+}
+
 
 //draw stuff
 function render(){
@@ -168,11 +222,103 @@ function render(){
 	ctx.restore();
 }
 
+function processKey(){
+	var animation = getSeq(anyAlphaKey || anyMoveKey());
+	if(animation != ""){console.log("ANIM: " + animation);}
+	getAnimation(animation);
+}
+
+function getSeq(keyDown){
+	for(var i=0;i<keyAnimations.length;i++){
+		var myKey = keyAnimations[i].key;
+		if(isSpecialKey(myKey)){
+			if(!anyMoveKey() && (((myKey === "DEF_" + dir) && lock_dir) || (myKey === "DEFAULT"))){
+				return keyAnimations[i].animName;
+			}else if(anyMoveKey() && (myKey === dir)){
+				return keyAnimations[i].animName;
+			}
+		}else{
+			if(anyAlphaKey && keys[myKey.charCodeAt(0)])
+				return keyAnimations[i].animName;
+		}
+	}
+	return "";
+}
+function getAnimation(name){
+	if(name === "")
+		return;
+
+	for(var i=0;i<frameAnimations.length;i++){
+		var mySeq = frameAnimations[i];
+		if(mySeq.animName === name && !isEqual(curSeq, mySeq.sequence)){
+			curSeq = mySeq.sequence;
+			curFrame = 0;
+			return;
+		}
+	}
+}
+
+function isSpecialKey(key){
+	return (key === "DEFAULT" || key === "DEF_UP" || key === "DEF_RIGHT" || key === "DEF_LEFT" || key === "DEF_DOWN" ||
+		key === "UP" || key === "LEFT" || key === "RIGHT" || key === "DOWN")
+}
+
+
+//determine if valud key to press
+document.body.addEventListener("keydown", function (e) {
+	if(inArr(moveKeySet, e.keyCode)){
+		if(!anyMoveKey()){dir = transMove(e.keyCode);}
+		keys[e.keyCode] = true;
+	}else if(inArr(alphaKeySet, e.keyCode)){
+		keys[e.keyCode] = true;
+		anyAlphaKey = false;
+	}
+});
+
+//check for key released
+document.body.addEventListener("keyup", function (e) {
+	if(inArr(moveKeySet, e.keyCode)){
+		keys[e.keyCode] = false;
+	}else if(inArr(alphaKeySet, e.keyCode)){
+		keys[e.keyCode] = false;
+		anyAlphaKey = false;
+	}
+});
+
+//prevent scrolling with the game
+window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+    if(([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1)){
+        e.preventDefault();
+    }
+}, false);
+
+//check if any directional key is held down
+function anyMoveKey(){
+	return (keys[upKey] || keys[downKey] || keys[leftKey] || keys[rightKey])
+}
+
+function transMove(e){
+	if(e == upKey)
+		return "UP";
+	else if(e == downKey)
+		return "DOWN";
+	else if(e == leftKey)
+		return "LEFT";
+	else if(e == rightKey)
+		return "RIGHT";
+}
+
+function init(){
+	keyAnimations.push(new keyAnim("RIGHT", "move right"));
+	frameAnimations.push(new seqAnim([0,1,2,1], "move right"));
+}
+
 //update stuff
 function main(){
 	render();
+	processKey();
 	requestAnimationFrame(main);
-
 }
 
 main();
