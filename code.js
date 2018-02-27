@@ -262,7 +262,7 @@ function getSeq(keyDown){
 				return keyAnimations[i].animName;
 			}
 		}else{
-			if(anyAlphaKey && keys[myKey.charCodeAt(0)])
+			if(anyAlphaKey && !isSpecialKey(myKey) && keys[myKey.charCodeAt(0)])
 				return keyAnimations[i].animName;
 		}
 	}
