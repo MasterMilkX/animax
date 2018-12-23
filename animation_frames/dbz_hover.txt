@@ -1,0 +1,4 @@
+[2, 3] - fly_f - DOWN
+[0, 1] - fly_b - UP
+[6, 7] - fly_l - LEFT
+[4, 5] - fly_r - RIGHT

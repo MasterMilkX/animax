@@ -27,12 +27,12 @@ h2{
 }
 #frameMapView{
 	width: 15em;
-	background: #00ff00;
+	background: #0000ff;
 }
 #propertyView{
 	width: 40em;
 	height: 5em;
-	background: #0000ff;
+	background: #00ff00;
 }
 
 

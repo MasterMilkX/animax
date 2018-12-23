@@ -219,6 +219,67 @@ function addSeq(){
 	document.getElementById("animName2").value = "";
 }
 
+function parseTextAnim(){
+	//clear current frames
+	clearKey();
+	clearSeq();
+
+	var animText = document.getElementById("rawInput").value;
+	var animationList = animText.split(/\n/);
+
+	for(var i=0;i<animationList.length;i++){
+		var sections = animationList[i].split(" - ");
+
+		//parse the lines
+		var seq = sections[0];
+		var animName = sections[1];
+		var key = sections[2];
+
+		//ADD THE ANIMATION
+
+		//clean up the sequence input
+		seq = seq.replace(/[^0-9\,]/g, "");
+		seq = seq.replace(/(\,)(\,)+/g, ",");
+		if((! /\[*\]/.test(seq)) && (! /\[*\]/.test(seq))){
+			seq = "[" + seq + "]";
+		}
+
+		//add to the array
+		frameAnimations.push(new seqAnim(JSON.parse(seq), animName));
+
+		//add to physical table
+		var table = document.getElementById("frameMapper");
+		var row = table.insertRow(table.rows.length);
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		cell1.innerHTML = seq;
+		cell2.innerHTML = animName;
+
+		//clear the stuff
+		document.getElementById("frameLabel").value = "";
+		document.getElementById("animName2").value = "";
+
+		//ADD THE KEY
+
+		//add to the array
+		keyAnimations.push(new keyAnim(key, animName));
+
+		//add to the physical table
+		var table = document.getElementById("keyMapper");
+		var row = table.insertRow(table.rows.length);
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		cell1.innerHTML = key;
+		cell2.innerHTML = animName;
+
+		//clear the stuff
+		document.getElementById("keyLabel").value = "";
+		document.getElementById("animName1").value = "";
+	}
+	
+
+}
+
 //delete the most recent sequence input to the table
 function delSeq(){
 	var table = document.getElementById("frameMapper");
