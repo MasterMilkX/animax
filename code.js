@@ -78,6 +78,15 @@ function loadSprite(){
 	}
 }
 
+
+//update the background color of the sprite canvas
+function updateColor(){
+	var spriteWindow = document.getElementById("spriteWindow");
+	spriteWindow.style.background = document.getElementById("sprite_color").value;
+	//console.log("changed color: " + document.getElementById("sprite_color").value);
+}
+
+//update the canvas size
 function updateCanvas(scaler){
 	canvas.width = scaler*scaleConst;
 	canvas.height = scaler*scaleConst;

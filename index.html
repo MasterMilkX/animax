@@ -10,11 +10,13 @@
 				<!--  SPRITE VIEW  -->
 				<td id="spriteView" rowspan="2">
 					<table id="spriteArea">
+
 						<tr><td colspan="2"><canvas id="spriteWindow">Wow, you need a new browser my dude</canvas></td></tr>
 						<tr>
 							<td style="padding-bottom: 0.5em; padding-left: 25px"><input type="file" style="width: 200px" id="image_upload" accept="image/*" onchange="loadSprite()"></td>
 							<td style="padding-bottom: 0.5em; padding-right: 25px;"><textarea id="rawInput" onchange="parseTextAnim()" rows="1" cols="12" placeholder="Paste Animation Here"/></textarea></td>
 						</tr>
+						<tr><td colspan="2" style="padding-top: 0.25em; padding-bottom: 0.5em; padding-left: 25px"><input id="sprite_color" type="text" placeholder="#fefefe" onchange="updateColor()"></td></tr>
 					</table>
 					
 					

@@ -1,4 +1,0 @@
-[0,1,2] - swing_f - DOWN
-[3,4,5] - swing_b - UP
-[6,7,8] - swing_l - LEFT
-[9,10,11] - swing_r - RIGHT
