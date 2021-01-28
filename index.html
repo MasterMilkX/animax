@@ -14,9 +14,13 @@
 						<tr><td colspan="2"><canvas id="spriteWindow">Wow, you need a new browser my dude</canvas></td></tr>
 						<tr>
 							<td style="padding-bottom: 0.5em; padding-left: 25px"><input type="file" style="width: 200px" id="image_upload" accept="image/*" onchange="loadSprite()"></td>
-							<td style="padding-bottom: 0.5em; padding-right: 25px;"><textarea id="rawInput" onchange="parseTextAnim()" rows="1" cols="12" placeholder="Paste Animation Here"/></textarea></td>
+							<td style="padding-bottom: 0.5em; padding-right: 5px"><input id="sprite_color" type="text" placeholder="#fefefe" onchange="updateColor()" size='10'></td>
+
 						</tr>
-						<tr><td colspan="2" style="padding-top: 0.25em; padding-bottom: 0.5em; padding-left: 25px"><input id="sprite_color" type="text" placeholder="#fefefe" onchange="updateColor()"></td></tr>
+						<tr>
+							<td style="padding-top: 0.25em; padding-bottom: 0.5em; "><textarea id="rawInput" rows="2" cols="20" placeholder="Paste Animation Here"/></textarea></td>
+							<td style="padding-top: 0.25em; padding-bottom: 0.5em; padding-right: 25px"><button onclick='parseTextAnim()' style='margin-right:5px'>Import</button><button onclick='exportAnim()'>Export</button></td>
+						</tr>
 					</table>
 					
 					
@@ -95,7 +99,7 @@
 							<td><input name="fps" type="number" min="1" max="320" value="4" onchange="fps=this.value"></td>
 							<td><input name="seqLen" type="number" min="1" max="32" value="4" onchange="seqlength=this.value"></td>
 							<td><input name="lock dir" type="checkbox" checked onchange="lock_dir=this.checked"></td>
-							<td><input name="scale" type="number" min="1" max="1000" value="100" onchange="updateCanvas(this.value)"></td>
+							<td><input name="scale" type="number" min="0" max="1000" value="1" onchange="updateCanvas(this.value)"></td>
 						</tr>
 					</table>
 				</td>

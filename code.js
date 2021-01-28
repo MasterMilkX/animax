@@ -37,7 +37,7 @@ var curFrame = 0;
 var ct = 0;
 var dir = "DOWN";
 var action = "idle";
-var scaleConst = 3.2;
+var scaleConst = 320;
 
 //key definition
 var keyAnimations = [];
@@ -88,8 +88,10 @@ function updateColor(){
 
 //update the canvas size
 function updateCanvas(scaler){
-	canvas.width = scaler*scaleConst;
-	canvas.height = scaler*scaleConst;
+	if(scaler == 0)
+		scaler = 1;
+	canvas.width = 1/scaler*scaleConst;
+	canvas.height = 1/scaler*scaleConst;
 }
 
 //draw a character sprite
@@ -287,6 +289,44 @@ function parseTextAnim(){
 	}
 	
 
+}
+
+//export the currently set animations
+function exportAnim(){
+	let out = "";
+	for(let k=0;k<keyAnimations.length;k++){
+		let keypress = keyAnimations[k]["key"];
+		let animName = keyAnimations[k]['animName'];
+
+		//find sequence associated with the animation name
+		let seq = [];
+		for(let f=0;f<frameAnimations.length;f++){
+			let fr = frameAnimations[f];
+			if(fr['animName'] == animName){
+				seq = fr['sequence'];
+				break;
+			}
+		}
+
+		//no sequence found so skip
+		if(seq.length == 0)
+			continue;
+
+
+		let s = "";
+		s += "[" + seq.toString() + "]";
+		s += " - " + animName;
+		s += " - " + keypress;
+
+		out += s + "\n";
+	}	
+
+	//replace text for output animations
+	if(out != ""){
+		document.getElementById("rawInput").value = out.trim();
+
+	console.log("Current animations exported!");
+	}	
 }
 
 //delete the most recent sequence input to the table

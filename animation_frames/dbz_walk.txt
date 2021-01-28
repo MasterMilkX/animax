@@ -1,0 +1,8 @@
+[1, 2] - walk_down - DOWN
+[0, 0] - idle_down - DEF_DOWN
+[4, 5] - walk_up - UP
+[3, 3] - idle_up - DEF_UP
+[7, 8] - walk_left - LEFT
+[6, 6] - idle_left - DEF_LEFT
+[10, 11] - walk_right - RIGHT
+[9, 9] - idle_right - DEF_RIGHT
