@@ -1,4 +1,4 @@
-// SOFTWARE CODE
+// ANIMATION TESTING SOFTWARE CODE
 // by Milk
 
 //set up the canvas
